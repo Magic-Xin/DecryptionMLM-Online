@@ -10,9 +10,9 @@ permissions:
   contents: write
 
 jobs:
-  build_wasm:
+  build:
     runs-on: ubuntu-latest
-
+    
     steps:
     - uses: actions/checkout@v3
     - name: Install wasm-pack
@@ -27,18 +27,10 @@ jobs:
       run: wasm-pack build --target web --out-dir ../decryption-mlm-vue3/pkg
       working-directory: decryption-mlm-wasm
       
-  build_vue:
-    runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node-version: [18.x]
-
-    steps:
-    - name: Use Node.js ${{ matrix.node-version }}
+    - name: Use Node.js 18.x
       uses: actions/setup-node@v3
       with:
-        node-version: ${{ matrix.node-version }}
+        node-version: '18.x'
         cache: 'npm'
         cache-dependency-path: decryption-mlm-vue3/package-lock.json
     - name: npm install
@@ -47,11 +39,7 @@ jobs:
     - name: build Vue
       run: npm run build
       working-directory: decryption-mlm-vue3
-    
-  deploy_github_pages:
-    runs-on: ubuntu-latest
-    
-    steps:
+      
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
