@@ -18,7 +18,9 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: wasm-bindgen-action
-      uses: jetli/wasm-bindgen-action@v0.2.0            
+      uses: jetli/wasm-bindgen-action@v0.2.0
+      with:
+        working-directory: decryption-mlm-wasm
     - name: Build Cargo
       run: cargo build
       working-directory: decryption-mlm-wasm
