@@ -6,14 +6,12 @@ on:
   pull_request:
     branches: [ "main" ]
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
+permissions:
+  contents: write
 
-    strategy:
-      matrix:
-        node-version: [18.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+jobs:
+  build_wasm:
+    runs-on: ubuntu-latest
 
     steps:
     - uses: actions/checkout@v3
@@ -28,7 +26,15 @@ jobs:
     - name: Build WASM
       run: wasm-pack build --target web --out-dir ../decryption-mlm-vue3/pkg
       working-directory: decryption-mlm-wasm
+      
+  build_vue:
+    runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        node-version: [18.x]
+
+    steps:
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -41,8 +47,12 @@ jobs:
     - name: build Vue
       run: npm run build
       working-directory: decryption-mlm-vue3
+    
+  deploy_github_pages:
+    runs-on: ubuntu-latest
+    
+    steps:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
         folder: decryption-mlm-vue3/dist
-            
