@@ -34,7 +34,7 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-        working-directory: decryption-mlm-wasm
+        cache-dependency-path: decryption-mlm-vue3/package-lock.json
     - name: npm install
       run: npm install
       working-directory: decryption-mlm-vue3
@@ -51,6 +51,5 @@ jobs:
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
-        folder: dist
-        working-directory: ./decryption-mlm-vue3
+        folder: decryption-mlm-vue3/dist
             
