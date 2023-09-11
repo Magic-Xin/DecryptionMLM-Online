@@ -38,11 +38,9 @@ jobs:
     - name: npm install
       run: npm install
       working-directory: decryption-mlm-vue3
-    - uses: actions/checkout@master
     - name: build Vue
       run: npm run build
       working-directory: decryption-mlm-vue3
-    - uses: actions/checkout@v3
     - name: Deploy to GitHub Pages
       uses: JamesIves/github-pages-deploy-action@v4.4.3
       with:
