@@ -20,6 +20,7 @@ jobs:
     - name: wasm-bindgen-action
       uses: jetli/wasm-bindgen-action@v0.2.0
       with:
+        version: 'latest'
         working-directory: decryption-mlm-wasm
     - name: Build Cargo
       run: cargo build
