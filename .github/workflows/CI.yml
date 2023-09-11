@@ -26,7 +26,7 @@ jobs:
       run: |
           rustup target add wasm32-unknown-unknown
     - name: Build WASM
-      run: wasm-pack build --target web
+      run: wasm-pack build --target web --out-dir ../decryption-mlm-vue3/pkg
       working-directory: decryption-mlm-wasm
 
     - name: Use Node.js ${{ matrix.node-version }}
@@ -39,13 +39,8 @@ jobs:
       run: npm install
       working-directory: decryption-mlm-vue3
     - uses: actions/checkout@master
-    - name: copy file
-      uses: canastro/copy-file-action@master
-      with:
-        source: "decryption-mlm-wasm/pkg/"
-        target: "decryption-mlm-vue3"
-        flags: "-r"
-    - run: npm run build
+    - name: build Vue
+      run: npm run build
       working-directory: decryption-mlm-vue3
     - uses: actions/checkout@v3
     - name: Deploy to GitHub Pages
